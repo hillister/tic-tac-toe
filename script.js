@@ -1,12 +1,10 @@
 const gameBoard = (function () {
     let board = ["", "", "", "", "", "", "", "", ""];
 
-    //get the board
     function getBoard(){
         return board
     }
 
-    //add marks to board
     function addMarker(index, marker){
         if(index = ""){
             board[index] = marker;
@@ -19,4 +17,10 @@ const gameBoard = (function () {
     }
 })
 
-console.log(gameBoard)
+const player = (function(name, marker) {
+    return {name, marker}
+})
+
+const player1 = player("Player 1", "X");
+const player2 = player("Player 2", "O");
+
