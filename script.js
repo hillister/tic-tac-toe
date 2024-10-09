@@ -10,7 +10,7 @@ const gameBoard = (function () {
     }
 
     function addMarker(index, marker){
-        if(index = ""){
+        if(board[index] === ""){
             board[index] = marker;
         }
     }
@@ -19,7 +19,7 @@ const gameBoard = (function () {
         getBoard,
         addMarker
     }
-})
+})();
 
 const player = (function(name, marker) {
     return {name, marker}
@@ -44,13 +44,32 @@ const gamePlay = (function () {
             [2, 4, 6]  
         ]   
     
-        for(combo in winningCombo){
-            if (gameBoard[combo[0]]){
+        for(const combo of winningCombo){
+            if (
+                board[combo[0]] === marker &&
+                board[combo[1]] === marker &&
+                board[combo[2]] === marker
+            ){
                 return true
-            } else {
-                return false
-            }
+            } 
         }
 
+        return false
     }
-})
+
+    currentPlayer = player1;
+    while (true) {
+        console.log(gameBoard.getBoard());
+
+        index = prompt('Choose a space..');
+
+        gameBoard.addMarker(index, currentPlayer.marker)
+
+        if(checkWin(gameBoard.getBoard(), currentPlayer.marker)){
+            console.log(`${currentPlayer.name} wins!`);
+            break
+        } 
+
+        currentPlayer = currentPlayer === player1 ? player2 : player1;
+    }
+})();
