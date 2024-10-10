@@ -73,3 +73,20 @@ const gamePlay = (function () {
         currentPlayer = currentPlayer === player1 ? player2 : player1;
     }
 })();
+
+//UI
+
+const displayUI = function (){
+    function renderBoard() {
+        const boardConatiner = document.getElementById("gameBoard");
+
+        for(let i = 0; i < 9; i++){
+            const button = document.createElement("button");
+            button.textContent = "";
+            button.setAttribute('data-index', i);
+            button.addEventListener("click", handleClick);
+            boardConatiner.appendChild(button);
+        }
+    }
+
+}
