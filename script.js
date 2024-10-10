@@ -79,7 +79,7 @@ const gamePlay = (function () {
 const displayUI = function (){
     function renderBoard() {
         const boardConatiner = document.getElementById("gameBoard");
-
+        
         for(let i = 0; i < 9; i++){
             const button = document.createElement("button");
             button.textContent = "";
@@ -89,4 +89,22 @@ const displayUI = function (){
         }
     }
 
-}
+    function handleClick(event) {
+        const button = event.target; 
+        const index = button.getAttribute("data-index");
+        
+        currentPlayer = player1;
+        if(gameBoard.getBoard()[index] === ""){
+            gameBoard.addMarker(index, currentPlayer.marker);
+            button.textContent = currentPlayer.marker
+
+            if(checkWin(gameBoard.getBoard(), currentPlayer.marker)){
+                console.log(`${currentPlayer.name} wins!`);
+                
+            } 
+        } else {
+            currentPlayer = currentPlayer === player1 ? player2 : player1;
+        }
+    }
+
+}();
