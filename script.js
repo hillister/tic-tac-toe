@@ -33,7 +33,7 @@ const player = (function(name, marker) {
 const player1 = player("Player 1", "X");
 const player2 = player("Player 2", "O");
 
-//game logic
+
 
 const gamePlay = (function () {
 
@@ -68,7 +68,6 @@ const gamePlay = (function () {
     
 })();
 
-//UI
 
 const displayUI = function (gamePlay){
     let currentPlayer = player1;
@@ -123,11 +122,26 @@ const displayUI = function (gamePlay){
         });
     }
 
+    function reset(){
+        const resetBtn = document.getElementById(`reset`)
+        resetBtn.addEventListener("click", function(){
+            gameBoard.getBoard().fill("");
+            currentPlayer = player1
+            document.getElementById("displayMessages").textContent = "";
+            gameOver = false;
+            const boardConatiner = document.getElementById("gameBoard");
+            boardConatiner.innerHTML = ""
+            renderBoard();
+        })
+    }
+
     return {
-        renderBoard
+        renderBoard,
+        reset
     }
     
 
 }(gamePlay);
 
 displayUI.renderBoard();
+displayUI.reset();
