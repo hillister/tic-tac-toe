@@ -1,6 +1,9 @@
 
 #gameBoard {
-    display: none;
+    visibility: hidden;  
+    opacity: 0;           
+    transition: visibility 0s, opacity 0.5s linear;
+    display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     height: 500px;
@@ -100,6 +103,9 @@ input {
     gap: 10px;
     row-gap: 30px;
     justify-items: center;
+    visibility: hidden;  /* Initially hidden */
+    opacity: 0;          /* Initially invisible */
+    transition: visibility 0s, opacity 0.5s linear;
 }
 
 #reset {

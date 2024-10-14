@@ -73,6 +73,7 @@ const displayUI = function (gamePlay){
     let currentPlayer = player1;
     let gameOver = false;
     const boardConatiner = document.getElementById("gameBoard");
+    const textBtns = document.getElementById("textBtns");
 
     function renderBoard() {
         boardConatiner.innerHTML = ""
@@ -128,7 +129,7 @@ const displayUI = function (gamePlay){
         resetBtn.addEventListener("click", function(){
             gameBoard.getBoard().fill("");
             currentPlayer = player1
-            document.getElementById("displayMessages").textContent = "";
+            document.getElementById("displayMessages").textContent = `${currentPlayer.name}'s turn`;
             gameOver = false;
             const boardConatiner = document.getElementById("gameBoard");
             boardConatiner.innerHTML = ""
@@ -144,18 +145,17 @@ const displayUI = function (gamePlay){
         submitBtn.addEventListener("click", function (){
             const player1Name = document.getElementById('player1').value;
             const player2Name = document.getElementById('player2').value;
-            const body = document.querySelector("body");
 
             if(player1Name && player2Name){
                 player1.name = player1Name;
                 player2.name = player2Name;
 
-                form.style.display = "none";
-
-                boardConatiner.style.display = "grid";
-                body.style.backgroundColor = "white";
-                resetBtn.style.display = "block";
-                newPlayers.style.display = "block"
+                form.style.visibility = "hidden";  
+                form.style.opacity = 0;            
+                boardConatiner.style.visibility = "visible"; 
+                boardConatiner.style.opacity = 1;  
+                textBtns.style.visibility = "visible"; 
+                textBtns.style.opacity = 1;        
 
                 const displayMessages = document.getElementById("displayMessages");
                 displayMessages.textContent = `${player1.name} vs ${player2.name}! Let the game begin. ${player1.name} starts`;
@@ -168,16 +168,18 @@ const displayUI = function (gamePlay){
     }
 
     function newGame(){
-        newPlayers.addEventListener("click", function newGameBtn(){
-            boardConatiner.innerHTML = "";
+        newPlayers.addEventListener("click", function (){
+            boardConatiner.style.visibility = "hidden";  
+            boardConatiner.style.opacity = 0;            
+            textBtns.style.visibility = "hidden";       
+            textBtns.style.opacity = 0;                  
+    
             gameBoard.getBoard().fill("");
             gameOver = false;
             currentPlayer = player1;
-
-            form.style.display = "block";
-            boardConatiner.style.display = "none";
-            resetBtn.style.display = "none";
-            newPlayers.style.display = "none"
+    
+            form.style.visibility = "visible"; 
+            form.style.opacity = 1;              
             document.getElementById("displayMessages").textContent = "";
             document.getElementById('player1').value = ""
             document.getElementById('player2').value = ""
