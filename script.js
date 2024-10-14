@@ -72,9 +72,10 @@ const gamePlay = (function () {
 const displayUI = function (gamePlay){
     let currentPlayer = player1;
     let gameOver = false;
+    const boardConatiner = document.getElementById("gameBoard");
 
     function renderBoard() {
-        const boardConatiner = document.getElementById("gameBoard");
+        boardConatiner.innerHTML = ""
         const displayMessages = document.getElementById("displayMessages")
         for(let i = 0; i < 9; i++){
             const button = document.createElement("button");
@@ -120,9 +121,9 @@ const displayUI = function (gamePlay){
             button.disabled = true;
         });
     }
-
+    const resetBtn = document.getElementById(`reset`)
     function reset(){
-        const resetBtn = document.getElementById(`reset`)
+        
         resetBtn.addEventListener("click", function(){
             gameBoard.getBoard().fill("");
             currentPlayer = player1
@@ -134,24 +135,59 @@ const displayUI = function (gamePlay){
         })
     }
 
+    const form = document.getElementById("playerForm");
+    const newPlayers = document.getElementById("newPlayers")
+
     function submit(){
         const submitBtn = document.getElementById("submit")
         submitBtn.addEventListener("click", function (){
             const player1Name = document.getElementById('player1').value;
             const player2Name = document.getElementById('player2').value;
-    
-            player1.name = player1Name;
-            player2.name = player2Name;
-    
-            const displayMessages = document.getElementById("displayMessages");
-            displayMessages.textContent = `${player1.name} vs ${player2.name}! Let the game begin. ${player1.name} starts`;
+
+            if(player1Name && player2Name){
+                player1.name = player1Name;
+                player2.name = player2Name;
+
+                form.style.display = "none";
+
+                boardConatiner.style.display = "grid";
+
+                resetBtn.style.display = "block";
+                newPlayers.style.display = "block"
+
+                const displayMessages = document.getElementById("displayMessages");
+                displayMessages.textContent = `${player1.name} vs ${player2.name}! Let the game begin. ${player1.name} starts`;
+            }
+            else{
+                alert("Pleae enter both names")
+            }
+
+        })
+    }
+
+    function newGame(){
+        newPlayers.addEventListener("click", function newGameBtn(){
+            boardConatiner.innerHTML = "";
+            gameBoard.getBoard().fill("");
+            gameOver = false;
+            currentPlayer = player1;
+
+            form.style.display = "block";
+            boardConatiner.style.display = "none";
+            resetBtn.style.display = "none";
+            newPlayers.style.display = "none"
+            document.getElementById("displayMessages").textContent = "";
+            document.getElementById('player1').value = ""
+            document.getElementById('player2').value = ""
+            
         })
     }
 
     return {
         renderBoard,
         reset,
-        submit
+        submit,
+        newGame
     }
     
 
@@ -160,3 +196,4 @@ const displayUI = function (gamePlay){
 displayUI.renderBoard();
 displayUI.reset();
 displayUI.submit();
+displayUI.newGame();
