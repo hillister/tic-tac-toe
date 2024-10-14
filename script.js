@@ -30,8 +30,8 @@ const player = (function(name, marker) {
     return {name, marker}
 })
 
-const player1 = player("Player 1", "X");
-const player2 = player("Player 2", "O");
+const player1 = player(document.getElementById('player1').value, "X");
+const player2 = player(document.getElementById('player1').value, "O");
 
 
 
@@ -76,7 +76,6 @@ const displayUI = function (gamePlay){
     function renderBoard() {
         const boardConatiner = document.getElementById("gameBoard");
         const displayMessages = document.getElementById("displayMessages")
-        displayMessages.textContent = `${currentPlayer.name} starts`
         for(let i = 0; i < 9; i++){
             const button = document.createElement("button");
             button.textContent = "";
@@ -135,9 +134,24 @@ const displayUI = function (gamePlay){
         })
     }
 
+    function submit(){
+        const submitBtn = document.getElementById("submit")
+        submitBtn.addEventListener("click", function (){
+            const player1Name = document.getElementById('player1').value;
+            const player2Name = document.getElementById('player2').value;
+    
+            player1.name = player1Name;
+            player2.name = player2Name;
+    
+            const displayMessages = document.getElementById("displayMessages");
+            displayMessages.textContent = `${player1.name} vs ${player2.name}! Let the game begin. ${player1.name} starts`;
+        })
+    }
+
     return {
         renderBoard,
-        reset
+        reset,
+        submit
     }
     
 
@@ -145,3 +159,4 @@ const displayUI = function (gamePlay){
 
 displayUI.renderBoard();
 displayUI.reset();
+displayUI.submit();
