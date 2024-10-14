@@ -15,9 +15,14 @@ const gameBoard = (function () {
         }
     }
 
+    function isFull() {
+        return board.every(cell => cell !== "");
+    }
+
     return {
         getBoard,
-        addMarker
+        addMarker,
+        isFull
     }
 })();
 
@@ -67,16 +72,19 @@ const gamePlay = (function () {
 
 const displayUI = function (gamePlay){
     let currentPlayer = player1;
+    let gameOver = false;
 
     function renderBoard() {
         const boardConatiner = document.getElementById("gameBoard");
-        
+        const displayMessages = document.getElementById("displayMessages")
+
         for(let i = 0; i < 9; i++){
             const button = document.createElement("button");
             button.textContent = "";
             button.setAttribute('data-index', i);
             button.addEventListener("click", handleClick);
             boardConatiner.appendChild(button);
+            
         }
     }
 
@@ -84,17 +92,35 @@ const displayUI = function (gamePlay){
         const button = event.target; 
         const index = button.getAttribute("data-index");
         
-        if(gameBoard.getBoard()[index] === ""){
+        if(!gameOver && gameBoard.getBoard()[index] === ""){
             gameBoard.addMarker(index, currentPlayer.marker);
             button.textContent = currentPlayer.marker
 
             if(gamePlay.checkWin(gameBoard.getBoard(), currentPlayer.marker)){
-                console.log(`${currentPlayer.name} wins!`);
+                displayMessages.textContent = `${currentPlayer.name} wins!`
+                gameOver = true;
+                disableButtons()
                 
-            } else {
-                currentPlayer = currentPlayer === player1 ? player2 : player1;
+            } else if(gameBoard.isFull()){
+                gameOver = true;
+                displayMessages.textContent = `It's a tie!`
+                disableButtons()
             }
-        } 
+            else {
+                currentPlayer = currentPlayer === player1 ? player2 : player1;
+                displayMessages.textContent = ``
+            }
+        } else {
+            displayMessages.textContent = `Invalid Choice`
+        }
+    }
+
+
+    function disableButtons(){
+        const buttons = document.querySelectorAll(`#gameBoard button`);
+        buttons.forEach(button => {
+            button.disabled = true;
+        });
     }
 
     return {
