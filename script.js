@@ -57,26 +57,17 @@ const gamePlay = (function () {
         return false
     }
 
-    currentPlayer = player1;
-    while (true) {
-        console.log(gameBoard.getBoard());
-
-        index = prompt('Choose a space..');
-
-        gameBoard.addMarker(index, currentPlayer.marker)
-
-        if(checkWin(gameBoard.getBoard(), currentPlayer.marker)){
-            console.log(`${currentPlayer.name} wins!`);
-            break
-        } 
-
-        currentPlayer = currentPlayer === player1 ? player2 : player1;
+    return {
+        checkWin
     }
+    
 })();
 
 //UI
 
-const displayUI = function (){
+const displayUI = function (gamePlay){
+    let currentPlayer = player1;
+
     function renderBoard() {
         const boardConatiner = document.getElementById("gameBoard");
         
@@ -93,18 +84,24 @@ const displayUI = function (){
         const button = event.target; 
         const index = button.getAttribute("data-index");
         
-        currentPlayer = player1;
         if(gameBoard.getBoard()[index] === ""){
             gameBoard.addMarker(index, currentPlayer.marker);
             button.textContent = currentPlayer.marker
 
-            if(checkWin(gameBoard.getBoard(), currentPlayer.marker)){
+            if(gamePlay.checkWin(gameBoard.getBoard(), currentPlayer.marker)){
                 console.log(`${currentPlayer.name} wins!`);
                 
-            } 
-        } else {
-            currentPlayer = currentPlayer === player1 ? player2 : player1;
-        }
+            } else {
+                currentPlayer = currentPlayer === player1 ? player2 : player1;
+            }
+        } 
     }
 
-}();
+    return {
+        renderBoard
+    }
+    
+
+}(gamePlay);
+
+displayUI.renderBoard();
