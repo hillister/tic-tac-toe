@@ -80,6 +80,7 @@ const displayUI = function (gamePlay){
         for(let i = 0; i < 9; i++){
             const button = document.createElement("button");
             button.textContent = "";
+            button.className = "boardBtn";
             button.setAttribute('data-index', i);
             button.addEventListener("click", handleClick);
             boardConatiner.appendChild(button);
@@ -137,12 +138,13 @@ const displayUI = function (gamePlay){
 
     const form = document.getElementById("playerForm");
     const newPlayers = document.getElementById("newPlayers")
-
+    
     function submit(){
         const submitBtn = document.getElementById("submit")
         submitBtn.addEventListener("click", function (){
             const player1Name = document.getElementById('player1').value;
             const player2Name = document.getElementById('player2').value;
+            const body = document.querySelector("body");
 
             if(player1Name && player2Name){
                 player1.name = player1Name;
@@ -151,7 +153,7 @@ const displayUI = function (gamePlay){
                 form.style.display = "none";
 
                 boardConatiner.style.display = "grid";
-
+                body.style.backgroundColor = "white";
                 resetBtn.style.display = "block";
                 newPlayers.style.display = "block"
 

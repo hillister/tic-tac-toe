@@ -1,22 +1,81 @@
+
 #gameBoard {
     display: none;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     height: 500px;
     width: 500px;
+    border: solid;
     
 }
 
-button:hover {
+.boardBtn:hover {
     cursor: pointer;
-    background-color: blueviolet;
+    background-color: rgb(224, 196, 143);
 }
 
-button {
+.boardBtn {
     font-size: 30px;
+    border: solid;
+    border-width: 2px;
 }
 
 body {
     display: grid;
     place-items: center;
+    background-color: rgb(32, 25, 97);
+    color: rgb(216, 140, 0);
+}
+
+/* form style*/
+
+#playerForm {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr 3fr;
+    grid-template-rows: repeat(4, 1fr);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    column-gap: 10px;
+    row-gap: 20px;
+    align-items: center;
+    font-weight: 700;
+}
+
+
+legend {
+    grid-column: 1/5;
+    justify-self: center;
+    font-weight: 600;
+    font-size: 30px;
+}
+
+#submit {
+    grid-column: 1/5;
+    background-color: rgb(216, 140, 0);
+    color: rgb(32, 25, 97);
+    font-size: 20px;
+    border: none;
+    font-weight: 900;
+    border-radius: 10px;
+    width: 200px;
+    justify-self: center;
+    height: 30px;
+}
+
+#submit:hover {
+    background-color: rgb(224, 196, 143);
+    cursor: pointer;
+    
+}
+
+input {
+    background-color: rgb(224, 196, 143);
+    border-radius: 10px;
+    border: none;
+    color: rgb(32, 25, 97);
+    height: 30px;
+    font-size: 18px;
 }
