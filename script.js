@@ -76,7 +76,7 @@ const displayUI = function (gamePlay){
     function renderBoard() {
         const boardConatiner = document.getElementById("gameBoard");
         const displayMessages = document.getElementById("displayMessages")
-
+        displayMessages.textContent = `${currentPlayer.name} starts`
         for(let i = 0; i < 9; i++){
             const button = document.createElement("button");
             button.textContent = "";
@@ -107,7 +107,7 @@ const displayUI = function (gamePlay){
             }
             else {
                 currentPlayer = currentPlayer === player1 ? player2 : player1;
-                displayMessages.textContent = ``
+                displayMessages.textContent = `${currentPlayer.name}'s turn`
             }
         } else {
             displayMessages.textContent = `Invalid Choice`

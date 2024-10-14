@@ -4,6 +4,7 @@
     grid-template-rows: 1fr 1fr 1fr;
     height: 500px;
     width: 500px;
+    
 }
 
 button:hover {
@@ -13,5 +14,9 @@ button:hover {
 
 button {
     font-size: 30px;
+}
 
+body {
+    display: grid;
+    place-items: center;
 }
